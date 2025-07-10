@@ -104,6 +104,11 @@ class WeightQBitsTensor(QBitsTensor):
             and (data.device.type == "cuda" and torch.version.cuda)
             and torch.cuda.get_device_capability(data.device)[0] >= 8
             and is_extension_available("quanto_cuda")
+        ) or (
+            qtype == qint4
+            and axis == 0
+            and len(size) == 2
+            and data.device.type == "xpu"
         ):
             if type(data) is PackedTensor:
                 data = data.unpack()
