@@ -34,4 +34,5 @@ class MaxOptimizer(AffineOptimizer):
         qmax = 2 ** (qtype.bits - 1) - 1
         scale = (rmax - rmin) / (qmax - qmin)
         shift = -rmin
+        shift = shift.to(torch.int8) if base.device.type == "xpu" else shift
         return scale, shift
