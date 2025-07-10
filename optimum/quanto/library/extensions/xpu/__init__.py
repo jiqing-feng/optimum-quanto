@@ -40,6 +40,20 @@ register_extension(ext)
 def unpack_xpu(t: torch.Tensor, bits: int):
     return ext.lib.unpack(t, bits)
 
+torch.library.define(
+    "quanto::gemm_f16i4_awq",
+    "(Tensor input,"
+    " Tensor other,"
+    " Tensor other_scale,"
+    " Tensor other_shift,"
+    " int rows,"
+    " int out_cols,"
+    " int in_cols,"
+    " int bits,"
+    " int group_size)"
+    " -> Tensor",
+)
+
 @torch.library.impl("quanto::gemm_f16i4_awq", "XPU")
 def gemm_f16i4_awq(
     input: torch.Tensor,
