@@ -50,7 +50,7 @@ def test_qbytes_mm(batch_size, input_features, input_dtype, weight_dtype, output
 
 
 @pytest.mark.skipunless(
-    (is_extension_available("quanto_cuda") and torch.cuda.get_device_capability()[0] < 8) or torch.xpu.is_available*(),
+    (is_extension_available("quanto_cuda") and torch.cuda.get_device_capability()[0] < 8) or torch.xpu.is_available(),
     reason="XPU and CUDA device < sm80 are available",
 )
 @pytest.mark.parametrize("in_features, out_features", [(256, 256), (512, 256)])
