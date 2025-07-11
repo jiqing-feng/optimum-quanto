@@ -96,7 +96,7 @@ def _test_awq_weight_qbits_tensor_linear(
 ):
     # Create an AWQWeightQBitsTensor from a QBitsTensor on CUDA
     qbt = random_qweight(
-        (out_features, in_features), weight_qtype, dtype, group_size=group_size, device=torch.device("cuda")
+        (out_features, in_features), weight_qtype, dtype, group_size=group_size, device=torch.device(0)
     )
     awq_qweight = AWQWeightQBitsTensor(
         qtype=qbt.qtype,
