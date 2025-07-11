@@ -98,7 +98,7 @@ class AWQWeightQBitsTensor(WeightQBitsTensor):
                 # Integer shift must be scaled
                 shift = scale * shift
             # Shift must be negated
-            shift = shift if data.device.type == "xpu" else -shift.contiguous() 
+            shift = shift.contiguous() if data.device.type == "xpu" else -shift.contiguous()
         super().__init__(qtype, axis, group_size, size, stride, data, scale, shift)
 
     def dequantize(self):
