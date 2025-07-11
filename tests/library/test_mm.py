@@ -59,7 +59,7 @@ def test_gemm_fp16_int4(batch_size, tokens, in_features, out_features):
     """This test verifies that the GEMM operation is equivalent to torch.mm."""
     bits = 4
     group_size = 128  # Hard-coded in kernels
-    device = torch.device(0) # XPU can also shared this setting.
+    device = torch.device(0) # XPU can also share this setting.
     input_shape = (batch_size, tokens, in_features)
     # FIXME: does not work if inputs are negative !!??
     inputs = torch.rand(input_shape, dtype=torch.float16, device=device)
