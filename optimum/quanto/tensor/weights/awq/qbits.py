@@ -112,7 +112,8 @@ class AWQWeightQBitsTensor(WeightQBitsTensor):
         data = group(self._data.unpack(), axis=self.axis, group_size=self._group_size)
         n_scales = self._scale.numel()
         scale = self._scale.t().reshape((n_scales, 1))
-        shift = -self._shift.t().reshape((n_scales, 1))
+        shift = self._shift if self._shift.device.type == "xpu" else -self._shift
+        shift = shift.t().reshape((n_scales, 1))
         return WeightQBitsTensor(
             self._qtype, self._axis, self._group_size, self.size(), self.stride(), data, scale, shift
         )

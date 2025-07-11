@@ -71,6 +71,10 @@ def gemm_f16i4_awq(
 
     input = input.reshape(-1, input.shape[-1])
 
+    # XPU does not support float32 for now.
+    if input.dtype == torch.float32:
+        input = input.to(torch.float16)
+
     y = torch.ops.aten._weight_int4pack_mm_with_scales_and_zeros(
         input, other, group_size, scales, shift
     )

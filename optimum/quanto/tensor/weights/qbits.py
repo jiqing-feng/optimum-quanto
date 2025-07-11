@@ -107,6 +107,7 @@ class WeightQBitsTensor(QBitsTensor):
         ) or (
             qtype == qint4
             and axis == 0
+            and group_size == 128
             and len(size) == 2
             and data.device.type == "xpu"
         ):
